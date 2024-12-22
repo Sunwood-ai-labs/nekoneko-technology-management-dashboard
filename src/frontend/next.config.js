@@ -5,17 +5,6 @@ const nextConfig = {
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
   },
-  env: {
-    API_BASE_URL: process.env.API_BASE_URL,
-    AUTH_SECRET: process.env.AUTH_SECRET,
-  },
-  typescript: {
-    ignoreBuildErrors: false,
-  },
-  experimental: {
-    serverActions: true,
-    typedRoutes: true,
-  },
   images: {
     domains: ['localhost'],
     remotePatterns: [
