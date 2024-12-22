@@ -15,10 +15,12 @@ interface ProjectStore {
   loading: boolean;
   error: string | null;
   fetchProjects: () => Promise<void>;
-  addProject: (project: Project) => void;
-  updateProject: (id: string, updates: Partial<Project>) => void;
-  deleteProject: (id: string) => void;
+  addProject: (project: Project) => Promise<void>;
+  updateProject: (id: string, updates: Partial<Project>) => Promise<void>;
+  deleteProject: (id: string) => Promise<void>;
 }
+
+const API_BASE_URL = 'http://localhost:3002/api';
 
 export const useProjectStore = create<ProjectStore>((set) => ({
   projects: [],
@@ -28,51 +30,91 @@ export const useProjectStore = create<ProjectStore>((set) => ({
   fetchProjects: async () => {
     set({ loading: true });
     try {
-      // TODO: バックエンドAPIが実装されたら実際のAPIコールに置き換える
-      const mockProjects: Project[] = [
-        {
-          id: '1',
-          name: 'ねこねこプロジェクト1',
-          status: '進行中',
-          progress: 75,
-          description: 'テストプロジェクト1の説明',
-          startDate: '2024-01-01',
-          endDate: '2024-06-30'
-        },
-        {
-          id: '2',
-          name: 'ねこねこプロジェクト2',
-          status: '計画中',
-          progress: 25,
-          description: 'テストプロジェクト2の説明',
-          startDate: '2024-02-01',
-          endDate: '2024-08-31'
-        }
-      ];
-      
-      set({ projects: mockProjects, loading: false });
+      const response = await fetch(`${API_BASE_URL}/projects`);
+      if (!response.ok) {
+        throw new Error('プロジェクトの取得に失敗しました');
+      }
+      const projects = await response.json();
+      set({ projects, loading: false, error: null });
     } catch (error) {
-      set({ error: '프로젝트 데이터를 불러오는데 실패했습니다.', loading: false });
+      set({ error: error instanceof Error ? error.message : '不明なエラーが発生しました', loading: false });
     }
   },
 
-  addProject: (project) => {
-    set((state) => ({
-      projects: [...state.projects, project]
-    }));
+  addProject: async (project) => {
+    set({ loading: true });
+    try {
+      const response = await fetch(`${API_BASE_URL}/projects`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...project,
+          start_date: project.startDate,
+          end_date: project.endDate,
+        }),
+      });
+      if (!response.ok) {
+        throw new Error('プロジェクトの作成に失敗しました');
+      }
+      const newProject = await response.json();
+      set((state) => ({
+        projects: [...state.projects, newProject],
+        loading: false,
+        error: null,
+      }));
+    } catch (error) {
+      set({ error: error instanceof Error ? error.message : '不明なエラーが発生しました', loading: false });
+    }
   },
 
-  updateProject: (id, updates) => {
-    set((state) => ({
-      projects: state.projects.map((project) =>
-        project.id === id ? { ...project, ...updates } : project
-      )
-    }));
+  updateProject: async (id, updates) => {
+    set({ loading: true });
+    try {
+      const response = await fetch(`${API_BASE_URL}/projects/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...updates,
+          start_date: updates.startDate,
+          end_date: updates.endDate,
+        }),
+      });
+      if (!response.ok) {
+        throw new Error('プロジェクトの更新に失敗しました');
+      }
+      const updatedProject = await response.json();
+      set((state) => ({
+        projects: state.projects.map((project) =>
+          project.id === id ? updatedProject : project
+        ),
+        loading: false,
+        error: null,
+      }));
+    } catch (error) {
+      set({ error: error instanceof Error ? error.message : '不明なエラーが発生しました', loading: false });
+    }
   },
 
-  deleteProject: (id) => {
-    set((state) => ({
-      projects: state.projects.filter((project) => project.id !== id)
-    }));
-  }
+  deleteProject: async (id) => {
+    set({ loading: true });
+    try {
+      const response = await fetch(`${API_BASE_URL}/projects/${id}`, {
+        method: 'DELETE',
+      });
+      if (!response.ok) {
+        throw new Error('プロジェクトの削除に失敗しました');
+      }
+      set((state) => ({
+        projects: state.projects.filter((project) => project.id !== id),
+        loading: false,
+        error: null,
+      }));
+    } catch (error) {
+      set({ error: error instanceof Error ? error.message : '不明なエラーが発生しました', loading: false });
+    }
+  },
 }));

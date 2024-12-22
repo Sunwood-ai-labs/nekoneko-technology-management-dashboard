@@ -1,0 +1,11 @@
+node_modules/
+build/
+*.log
+.env*
+tasks
+tmp/
+example/terraform/.terraform
+example/terraform/.terraform.lock.hcl
+example/terraform/terraform.tfstate
+example/terraform/terraform.tfstate.backup
+src/frontend/node_modules
