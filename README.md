@@ -1,8 +1,9 @@
 <div align="center">
-  <img src="assets/header.svg" alt="Nekoneko Technology Dashboard Header">
-</div>
+  <img src="assets/header2.svg" alt="Nekoneko Technology Dashboard Header">
 
-# 🐱 ねこねこテクノロジー技術管理ダッシュボード
+  # 🐱 ねこねこテクノロジー技術管理ダッシュボード
+
+</div>
 
 ## 📋 概要
 
