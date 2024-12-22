@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="200" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <linearGradient id="headerGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#3494E6;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#EC6EAD;stop-opacity:1" />
+        </linearGradient>
+        <style>
+            @keyframes slideIn {
+                from { transform: translateX(-100%); }
+                to { transform: translateX(0); }
+            }
+            @keyframes fadeIn {
+                from { opacity: 0; }
+                to { opacity: 1; }
+            }
+            .text { animation: slideIn 1s ease-out; }
+            .subtitle { animation: fadeIn 2s ease-out; }
+        </style>
+    </defs>
+    <rect width="800" height="200" rx="15" ry="15" fill="url(#headerGradient)"/>
+    <g class="text" style="font-family: Arial, sans-serif;">
+        <text x="400" y="90" fill="white" font-size="40" text-anchor="middle" font-weight="bold">
+            Nekoneko Technology Dashboard
+        </text>
+        <text x="400" y="130" fill="white" font-size="20" text-anchor="middle" class="subtitle">
+            Empowering Innovation Through Technology Management
+        </text>
+    </g>
+</svg>

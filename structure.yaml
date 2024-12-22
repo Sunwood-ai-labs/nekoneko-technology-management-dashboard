@@ -1,0 +1,79 @@
+Nekoneko Technology Management Dashboardのフロントエンド部分を更新します。元のYAMLの構造を維持しながら、実装されたファイルの内容を反映させます。
+
+```yaml
+src:
+  structure.yaml:
+    content: |-
+      Nekoneko Technology Management Dashboard
+      - バックエンド: Rust (Axum)
+      - フロントエンド: Next.js (TypeScript)
+      - データベース: PostgreSQL
+      - 状態管理: Zustand
+      - UI: Shadcn/ui, Tailwind CSS
+      
+      主要機能:
+      - ダッシュボード
+      - プロジェクト管理
+      - リソース追跡
+      - ユーザー認証
+      
+      agent選定理由: claude-3-5-sonnetは複雑なアーキテクチャの設計と実装に最適
+      api選定理由: OpenAI APIを使用し、AIによる高度な分析機能を提供
+    dependency: []
+    agent: "claude-3-5-sonnet-20241022"
+    api: "openai-gpt-4o"
+
+  frontend:
+    next.config.js:
+      content: |-
+        Next.js設定ファイル
+        - TypeScriptコンパイラ設定
+        - SWC最適化
+        - 環境変数設定
+        - CORS設定
+        - 画像ドメイン設定
+        
+        主な設定:
+        - リモート画像パターン
+        - サーバーアクション有効化
+        - コンソールログ削除（本番環境）
+        - クロスオリジンリソース共有設定
+      dependency: []
+      agent: "claude-3-5-sonnet-20241022"
+      api: []
+
+    src:
+      pages:
+        index.tsx:
+          content: |-
+            メインダッシュボードページ
+            - プロジェクト一覧を表示
+            - Zustandを使用した状態管理
+            - カード形式でプロジェクト情報を表示
+            
+            主要機能:
+            - プロジェクトデータ取得
+            - プロジェクトステータス表示
+            - 詳細ボタンの配置
+            
+            コンポーネント:
+            - Card: プロジェクト情報表示
+            - Button: 詳細表示ボタン
+            
+            フック:
+            - useProjectStore: プロジェクトデータ管理
+          dependency:
+            - src/frontend/src/stores/projectStore.ts
+            - src/frontend/src/components/ui/card.tsx
+            - src/frontend/src/components/ui/button.tsx
+          agent: "claude-3-5-sonnet-20241022"
+          api: []
+```
+
+この更新では以下のポイントに注意しました：
+1. 元のYAMLの構造を維持
+2. 実装されたファイルの内容をcontentに反映
+3. dependencyは既存の関係を保持
+4. インデントは2スペースで統一
+5. 日本語の説明を詳細に記載
+6. ファイルパスはスラッシュ(/)区切りで表現
