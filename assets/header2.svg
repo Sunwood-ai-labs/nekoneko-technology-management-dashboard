@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="200" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <!-- メインの背景グラデーション -->
+        <linearGradient id="headerGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#4158D0">
+                <animate attributeName="stop-color" values="#4158D0;#C850C0;#4158D0" dur="8s" repeatCount="indefinite"/>
+            </stop>
+            <stop offset="50%" style="stop-color:#C850C0">
+                <animate attributeName="stop-color" values="#C850C0;#FFCC70;#C850C0" dur="8s" repeatCount="indefinite"/>
+            </stop>
+            <stop offset="100%" style="stop-color:#FFCC70">
+                <animate attributeName="stop-color" values="#FFCC70;#4158D0;#FFCC70" dur="8s" repeatCount="indefinite"/>
+            </stop>
+        </linearGradient>
+
+        <!-- テキストのグラデーション -->
+        <linearGradient id="textGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:white">
+                <animate attributeName="stop-color" values="white;#FFD700;white" dur="4s" repeatCount="indefinite"/>
+            </stop>
+            <stop offset="100%" style="stop-color:#FFD700">
+                <animate attributeName="stop-color" values="#FFD700;white;#FFD700" dur="4s" repeatCount="indefinite"/>
+            </stop>
+        </linearGradient>
+
+        <!-- 装飾用パターン -->
+        <pattern id="dots" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+            <circle cx="10" cy="10" r="2" fill="rgba(255,255,255,0.3)">
+                <animate attributeName="r" values="2;3;2" dur="2s" repeatCount="indefinite"/>
+            </circle>
+        </pattern>
+
+        <!-- アニメーション定義 -->
+        <style type="text/css">
+            @keyframes float {
+                0% { transform: translateY(0px); }
+                50% { transform: translateY(-10px); }
+                100% { transform: translateY(0px); }
+            }
+            @keyframes slideIn {
+                from { transform: translateX(-100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes fadeIn {
+                from { opacity: 0; }
+                to { opacity: 1; }
+            }
+            @keyframes rotate {
+                from { transform: rotate(0deg); }
+                to { transform: rotate(360deg); }
+            }
+            .main-text { animation: slideIn 1.5s ease-out forwards; }
+            .sub-text { animation: fadeIn 2s ease-out forwards; }
+            .floating { animation: float 3s ease-in-out infinite; }
+            .rotating { animation: rotate 10s linear infinite; }
+        </style>
+    </defs>
+
+    <!-- メイン背景 -->
+    <rect width="800" height="200" rx="15" ry="15" fill="url(#headerGradient)"/>
+    <rect width="800" height="200" rx="15" ry="15" fill="url(#dots)" opacity="0.5"/>
+
+    <!-- 装飾的な図形 -->
+    <g class="rotating" transform="translate(50,50)">
+        <path d="M0,0 L30,0 L15,25 Z" fill="rgba(255,255,255,0.2)"/>
+    </g>
+    <g class="rotating" transform="translate(700,150)">
+        <rect x="-15" y="-15" width="30" height="30" fill="rgba(255,255,255,0.2)" transform="rotate(45)"/>
+    </g>
+
+    <!-- 波紋エフェクト -->
+    <circle cx="700" cy="50" r="20" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="2">
+        <animate attributeName="r" values="20;40;20" dur="3s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0.3;0;0.3" dur="3s" repeatCount="indefinite"/>
+    </circle>
+
+    <!-- メインテキスト -->
+    <g class="main-text floating" style="font-family: Arial, sans-serif;">
+        <text x="400" y="90" fill="url(#textGradient)" font-size="40" text-anchor="middle" font-weight="bold">
+            Nekoneko Technology Dashboard
+        </text>
+        <text x="400" y="130" fill="white" font-size="20" text-anchor="middle" class="sub-text">
+            Empowering Innovation Through Technology Management
+        </text>
+    </g>
+
+    <!-- 装飾的なライン -->
+    <path d="M100,160 Q400,140 700,160" stroke="rgba(255,255,255,0.3)" fill="none" stroke-width="2">
+        <animate attributeName="d" 
+                 values="M100,160 Q400,140 700,160;M100,165 Q400,145 700,165;M100,160 Q400,140 700,160" 
+                 dur="4s" repeatCount="indefinite"/>
+    </path>
+</svg>
